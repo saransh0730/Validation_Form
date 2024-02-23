@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+    <div class="bg">
+        <img src="" alt="">
+    </div>
+    <div id="navbar">
+        <ul>
+            <li class="item"><a href="#">Home</a></li>
+            <li class="item"><a href="#">Community</a></li>
+            <li class="item"><a href="#">Fashion</a></li>
+            <li class="item"><a href="#">Offers</a></li>
+        </ul>
+    </div>
+<body>
+    <h1>SignUp</h1>
+    <br> 
+    <div class="signup">
+    <form onsubmit="wrong_pass_alert(); validate_password(); validate_mail()" id="forms"> 
+        <!-- <label for="email">Format: abc@gmail.com</label> -->
+        <input type="email" placeholder="Enter your email" id="em" class="name" required title="Must contain @gmail.com/hotmail.com/yahoo.com" value="">
+        <!-- <select name="" id="">+91</select> -->
+        <!-- <label for="tel">Format 01234-56789</label> -->
+        <input type="tel" placeholder="Enter your contact no." id="phone" pattern="[0-9]{10}" required maxlength="10" title="10 digits only from numbers 0-9">
+    <input type="password" placeholder="Create your password" id="pass" title="Must contain a special character (@!$%&*#+-), A number, A uppercase char, A lowercase char" onkeyup="pass_check(this.value)">
+    <!-- <p id="check"> -->
+    <label class="password-check"> 8 characters </label>
+    <label class="password-check"> 1 lower case character </label>
+    <label class="password-check"> 1 upper case character </label>
+    <label class="password-check"> 1 numerical character </label>
+    <label class="password-check"> 1 special character </label>
+</p>
+    <label for="checkbox" id="showpass">Show password</label>
+    <input type="checkbox" id="showpass1" onclick="password_visibility()">
+    <input type="password" placeholder="Confirm your password" id="cpass" title="Should match the password you created" onkeyup="validate_password()">
+    <span id="wrong_pass_alert"></span>
+    <button type="submit" id="sub">Submit</button>
+    <!-- <input type="checkbox" onclick="password_visibility()">Show Password -->
+    <p>Already a member?</p>
+    <button type="submit" class="btn">Continue with Mandelbulb</button>
+</form>
+    </div>
+
+ <script>
+    
+function validate_mail(){
+        var email = document.getElementById('em').value;
+        const regex = new RegExp(/(gmail.com)|(hotmail.com)|(yahoo.com)/g);
+        // const regex = "/(gmail.com)|(hotmail.com)|(yahoo.com)/gim";
+        if(regex.test(email)){
+            alert("Valid email");
+        }else{
+            alert("Invalid email, please provide correct input");
+        }
+    }
+
+function validate_password(){
+const p = document.getElementById('pass').value;
+const cp = document.getElementById('cpass').value;
+if(p!=cp){
+    document.getElementById('wrong_pass_alert').style.color = 'red';
+                document.getElementById('wrong_pass_alert').innerHTML
+                    = '☒ Passwords do not match';
+    document.getElementById('sub').disabled = true;
+    document.getElementById('sub').style.opacity = (0.4);
+
+} else {
+    document.getElementById('wrong_pass_alert').style.color = 'green';
+                document.getElementById('wrong_pass_alert').innerHTML =
+                    '🗹 Password Matched';
+    document.getElementById('sub').disabled = false;
+    document.getElementById('sub').style.opacity = (1);
+}
+}
+
+function wrong_pass_alert(){
+    if(document.getElementById('pass').value != "" && document.getElementById('cpass').value != ""){
+        alert("Your response is submitted");
+    } else {
+        alert("Please fill all the fields");
+    }
+}
+
+function password_visibility(){
+    var x = document.getElementById("pass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+
+function pass_check(data){
+
+    var passClass = document.getElementsByClassName('password-check');
+    const lowercase = new RegExp(/(?=.*[a-z])/g);
+    const uppercase = new RegExp(/(?=.*[A-Z])/g);
+    const digit = new RegExp(/(?=.*[0-9])/g);
+    const specialChar = new RegExp(/(?=.*[@$!%*?&])/g)
+    const eightchar = new RegExp(/(?=.{8,15})/g);
+
+    if(eightchar.test(data)){
+        passClass[0].style.color = "green";
+    }else{
+        passClass[0].style.color = "red";
+    } 
+    
+    if(lowercase.test(data)){
+        passClass[1].style.color = "green";
+    }else{
+        passClass[1].style.color = "red";
+    } 
+
+    if(uppercase.test(data)){
+        passClass[2].style.color = "green";
+    }else{
+        passClass[2].style.color = "red";
+    } 
+    
+    if(digit.test(data)){
+        passClass[3].style.color = "green";
+    }else{
+        passClass[3].style.color = "red";
+    } 
+
+    if(specialChar.test(data)){
+        passClass[4].style.color = "green";
+    }else{
+        passClass[4].style.color = "red";
+    } 
+}
+</script> 
+</body>
+</html>
